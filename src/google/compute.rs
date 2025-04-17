@@ -9,6 +9,7 @@ pub struct ComputeClient<T: TokenSourceProvider> {
     reqwest_client: reqwest::Client,
     base_url: String,
     project_id: String,
+    project_numberical_id: String,
 }
 
 /// An GCP Instance, only the fields we care about
@@ -61,6 +62,7 @@ impl<T: TokenSourceProvider> ComputeClient<T> {
         Self {
             token_provider,
             project_id: crate::consts::COMPUTE_PROJECT_ID.to_string(),
+            project_numberical_id: crate::consts::COMPUTE_PROJECT_NUMERICAL_ID.to_string(),
             base_url: "https://compute.googleapis.com".to_string(),
             reqwest_client: reqwest::Client::new(),
         }
@@ -123,8 +125,8 @@ impl<T: TokenSourceProvider> ComputeClient<T> {
         &self,
         instance_name: &str,
         zones: &[&str],
-    ) -> Result<Option<Instance>, Box<dyn std::error::Error + Send + Sync>> {
-        let mut instance: Option<Instance> = None;
+    ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+        let mut status: Option<reqwest::StatusCode> = None;
         for zone in zones {
             let url = format!(
                 "{}/compute/v1/projects/{}/zones/{}/instances/{}",
@@ -135,39 +137,60 @@ impl<T: TokenSourceProvider> ComputeClient<T> {
 
             let response = self
                 .reqwest_client
-                .get(&url)
+                .delete(&url)
                 .header(
                     "Authorization",
                     &self.token_provider.token_source().token().await?,
                 )
                 .send()
                 .await?;
-            let status = response.status();
+            status = Some(response.status());
 
-            let body = response.text().await?;
-
-            if status == reqwest::StatusCode::NOT_FOUND {
-                continue;
+            match status.unwrap() {
+                reqwest::StatusCode::OK => {
+                    info!("Instance {} deleted successfully", instance_name);
+                }
+                reqwest::StatusCode::NOT_FOUND => {
+                    error!("Instance {} not found.", instance_name);
+                    return Err(Box::new(std::io::Error::new(
+                        std::io::ErrorKind::NotFound,
+                        format!("Error deleting instance: {}", status.unwrap()),
+                    )));
+                }
+                _ => {
+                    error!(
+                        "Error deleting instance: {}. Status: {}",
+                        instance_name,
+                        status.unwrap()
+                    );
+                    return Err(Box::new(std::io::Error::new(
+                        std::io::ErrorKind::Other,
+                        format!("Error deleting instance: {}", status.unwrap()),
+                    )));
+                }
             }
 
-            info!("{}", body);
-
-            match serde_json::from_str(&body) {
-                Ok(i) => {
-                    instance = Some(i);
+            // Wait for instance to be deleted
+            let mut retries = 20;
+            while retries > 0 {
+                let instance = self.get_instance(instance_name, zones).await?;
+                if instance.is_none() {
                     break;
                 }
-                Err(e) => {
-                    error!(
-                        "Error parsing response: {}. Status: {}. Response: {}",
-                        e, status, body
-                    );
-                    return Err(Box::new(e));
-                }
-            };
+                warn!("Instance {} still exists, waiting...", instance_name);
+                tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
+                retries -= 1;
+            }
+            if retries == 0 {
+                error!("Instance {} still exists after 20 retries", instance_name);
+                return Err(Box::new(std::io::Error::new(
+                    std::io::ErrorKind::Other,
+                    format!("Instance {} still exists after 20 retries", instance_name),
+                )));
+            }
         }
 
-        Ok(instance)
+        Ok(())
     }
 
     /// Fetch the instances in a zone given their project id and a query filter
@@ -249,43 +272,82 @@ mod tests {
     use crate::consts::*;
     use crate::test_utils::*;
 
+    const TEST_INSTANCE: &str = "gke-test-cluster-onesig-scylla-old-v1-967bcf8d-0rim";
+    const TEST_INSTANCE_ID: &str = "3513668990839866896";
+    const TEST_ZONE: &str = "europe-west4-b";
+
     #[tokio::test]
     async fn test_get_instance() {
-        let instance = "gke-test-cluster-onesig-scylla-old-v1-967bcf8d-0rim";
-        let zone = "europe-west4-b";
-        let mut compute = ComputeClient::new(
+        let compute = ComputeClient::new(
             ComputeClient::default_token_source_provider()
                 .await
                 .unwrap(),
         );
 
-        let instance = compute.get_instance(instance, &[zone]).await.unwrap();
+        let instance = compute
+            .get_instance(TEST_INSTANCE, &[TEST_ZONE])
+            .await
+            .unwrap();
 
-        assert_eq!(instance.unwrap().id, "3513668990839866896");
+        assert_eq!(instance.unwrap().id, TEST_INSTANCE_ID);
     }
 
     #[tokio::test]
     async fn test_get_instance_group() {
-        let instance = "gke-test-cluster-onesig-scylla-old-v1-967bcf8d-0rim";
-        let zone = "europe-west4-b";
-        let mut compute = ComputeClient::new(
+        let compute = ComputeClient::new(
             ComputeClient::default_token_source_provider()
                 .await
                 .unwrap(),
         );
 
-        let instance = compute.get_instance(instance, &[zone]).await.unwrap();
+        let instance = compute
+            .get_instance(TEST_INSTANCE, &[TEST_ZONE])
+            .await
+            .unwrap();
 
         if let Some(instance) = instance {
             if let Some(metadata_items) = instance.metadata {
-                for item in metadata_items.items.unwrap_or_default() {
-                    println!("Key: {}, Value: {:?}", item.key, item.value,);
+                if let Some(instance_group_item) = metadata_items
+                    .items
+                    .unwrap_or_default()
+                    .iter()
+                    .find(|item| item.key == "created-by")
+                {
+                    let value = instance_group_item.value.as_deref().unwrap_or_default();
+                    let project_numberical_id = compute.project_numberical_id.clone();
+                    let starting_string = format!(
+                        "projects/{project_numberical_id}/zones/{TEST_ZONE}/instanceGroupManagers/"
+                    );
+                    assert!(
+                        value.starts_with(&starting_string),
+                        "Expected '{}' to start with {}",
+                        value,
+                        starting_string,
+                    );
+                } else {
+                    error!("No metadata item with key 'instanceGroup' found.");
                 }
             } else {
-                println!("No metadata items found for the instance.");
+                error!("No metadata items found for the instance.");
             }
         } else {
-            println!("Instance not found.");
+            error!("Instance not found.");
         }
+    }
+
+    // Will actually delete the TEST_INSTANCE, run this test with caution
+    #[ignore]
+    #[tokio::test]
+    async fn test_delete() {
+        let compute = ComputeClient::new(
+            ComputeClient::default_token_source_provider()
+                .await
+                .unwrap(),
+        );
+
+        let ret = compute
+            .delete_instance(TEST_INSTANCE, &[TEST_ZONE])
+            .await
+            .unwrap();
     }
 }
