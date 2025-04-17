@@ -1,0 +1,44 @@
+[package]
+name = "scylla-failover-manager"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "scylla-failover-manager"
+path = "src/main.rs"
+
+[[bin]]
+name = "force-host-error"
+path = "src/force_host_error.rs"
+
+[dependencies]
+google-cloud-pubsub = "0.29.1"
+clap = { version = "4.5.20", features = ["derive", "env"] }
+tokio = { version = "1.41.1", features = ["full"] }
+google-cloud-gax = "0.19.1"
+google-cloud-googleapis = "0.15.0"
+futures-util = "0.3.31"
+tokio-util = "0.7.12"
+serde = "1.0.215"
+serde_json = "1.0.132"
+reqwest = { version = "0.12", features = ["json"] }
+logging-base = { version = "24.0.7", registry = "onesignal" }
+
+google-cloud-auth = "0.17.1"
+google-cloud-token = "0.1.2"
+rand = "0.8.5"
+postgres-cluster = { version = "53.1.0", registry = "onesignal" }
+
+# This is so we can easily generate structure logging
+valuable = { version = "0.1.0", features = ["derive"] }
+tracing-core = { version = "0.1.32", features = ["valuable"] }
+tracing = { version = "0.1.40" }
+tracing-subscriber = { version = "0.3.18", features = ["valuable"] }
+
+[dev-dependencies]
+mockito = "1.6.1"
+async-trait = "0.1.83"
+futures = "0.3"
+tempfile = "3"
+serial_test = "3.2.0"
+nix = { version = "0.29.0", features = ["user"]}

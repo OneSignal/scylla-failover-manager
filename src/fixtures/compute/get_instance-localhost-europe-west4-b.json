@@ -1,0 +1,85 @@
+{
+  "kind": "compute#instance",
+  "id": "2009105993872186471",
+  "creationTimestamp": "2024-06-18T08:06:50.581-07:00",
+  "name": "0001-test-onesignal",
+  "tags": {
+    "items": [
+      "node-exporter",
+      "postgres",
+      "postgres-exporter"
+    ],
+    "fingerprint": "1baQFZVcAQA="
+  },
+  "machineType": "https://www.googleapis.com/compute/v1/projects/core-infra-onesignal/zones/europe-west4-b/machineTypes/n2-highmem-64",
+  "status": "RUNNING",
+  "zone": "https://www.googleapis.com/compute/v1/projects/core-infra-onesignal/zones/europe-west4-b",
+  "canIpForward": false,
+  "networkInterfaces": [
+    {
+      "kind": "compute#networkInterface",
+      "network": "https://www.googleapis.com/compute/v1/projects/shared-infra-onesignal/global/networks/core-network-onesignal",
+      "subnetwork": "https://www.googleapis.com/compute/v1/projects/shared-infra-onesignal/regions/europe-west4/subnetworks/core-subnetwork-core-network-onesignal",
+      "networkIP": "127.0.0.1",
+      "name": "nic0",
+      "fingerprint": "qcB9ezXmeOI=",
+      "stackType": "IPV4_ONLY"
+    }
+  ],
+  "metadata": {
+    "kind": "compute#metadata",
+    "fingerprint": "E7IRQ1_xuH0=",
+    "items": [
+      {
+        "key": "block-project-ssh-keys",
+        "value": "true"
+      }
+    ]
+  },
+  "serviceAccounts": [
+    {
+      "email": "instance-postgres-persistence@core-infra-onesignal.iam.gserviceaccount.com",
+      "scopes": [
+        "https://www.googleapis.com/auth/cloud-platform"
+      ]
+    }
+  ],
+  "selfLink": "https://www.googleapis.com/compute/v1/projects/core-infra-onesignal/zones/europe-west4-b/instances/0001-test-onesignal",
+  "scheduling": {
+    "onHostMaintenance": "MIGRATE",
+    "automaticRestart": false,
+    "preemptible": false,
+    "provisioningModel": "STANDARD"
+  },
+  "cpuPlatform": "Intel Ice Lake",
+  "labels": {
+    "ansible_environment": "test",
+    "ansible_group": "instance_postgres_persistence",
+    "ansible_postgres_cluster_id": "subscription",
+    "ansible_postgres_instance_id": "00000000",
+    "ansible_postgres_is_primary": "true",
+    "ansible_postgres_shard_id": "x00",
+    "ansible_postgres_version": "15",
+    "node_exporter": "enabled",
+    "onesignal_com_team": "platform",
+    "postgres_exporters": "enabled"
+  },
+  "labelFingerprint": "4zm3uF8rQqU=",
+  "minCpuPlatform": "Intel Ice Lake",
+  "startRestricted": false,
+  "deletionProtection": true,
+  "shieldedInstanceConfig": {
+    "enableSecureBoot": true,
+    "enableVtpm": true,
+    "enableIntegrityMonitoring": true
+  },
+  "shieldedInstanceIntegrityPolicy": {
+    "updateAutoLearnPolicy": true
+  },
+  "fingerprint": "uxPLVLYmdww=",
+  "advancedMachineFeatures": {
+    "threadsPerCore": 2
+  },
+  "lastStartTimestamp": "2024-06-18T08:07:02.215-07:00",
+  "satisfiesPzi": true
+}

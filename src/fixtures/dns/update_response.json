@@ -1,0 +1,10 @@
+{
+  "name": "test-dns-api.app.postgres.persistence.staging.onesignal.lan.",
+  "type": "A",
+  "ttl": 300,
+  "rrdatas": [
+    "127.0.0.2"
+  ],
+  "signatureRrdatas": [],
+  "kind": "dns#resourceRecordSet"
+}

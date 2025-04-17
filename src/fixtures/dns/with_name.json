@@ -1,0 +1,16 @@
+{
+  "rrsets": [
+    {
+      "name": "ro.p00.x00.subscription.postgres.persistence.onesignal.lan.",
+      "type": "A",
+      "ttl": 30,
+      "rrdatas": [
+        "10.128.0.76",
+        "10.128.2.76"
+      ],
+      "signatureRrdatas": [],
+      "kind": "dns#resourceRecordSet"
+    }
+  ],
+  "kind": "dns#resourceRecordSetsListResponse"
+}

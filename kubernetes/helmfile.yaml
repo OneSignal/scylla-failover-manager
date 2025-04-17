@@ -1,0 +1,19 @@
+repositories:
+  - name: onesignal
+    url: https://dl.cloudsmith.io/ugZ15xCgdm7rQREk/onesignal/helm/helm/charts/
+
+environments:
+  staging:
+  production:
+
+releases:
+  - name: scylla-failover-manager
+    namespace: scylla-failover-manager-{{ .Environment.Name }}
+    chart: onesignal/consumer
+    version: 0.10.4
+    missingFileHandler: Error
+    values:
+      - common.yml
+      - {{ .Environment.Name }}.yml
+      - image:
+          tag: {{ requiredEnv "GIT_COMMIT" | quote }}

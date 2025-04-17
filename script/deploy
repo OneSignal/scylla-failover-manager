@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [ -z "$1" ]; then
+  echo "Missing environment to deploy to: script/deploy ENV"
+  exit 1
+elif [ "$1" = 'production' ] || [ "$1" = 'staging' ]; then
+  export ENV="$1"
+else
+  echo "Sorry, I don't know how to deploy to the '$1' environment."
+  exit 1
+fi
+
+GIT_COMMIT="$(git rev-parse @)"
+export GIT_COMMIT
+
+helmfile --environment "${ENV}" --file kubernetes/helmfile.yaml apply

@@ -1,0 +1,10 @@
+[registries.onesignal]
+index = "sparse+https://cargo.cloudsmith.io/onesignal/crates/"
+token = "Token WHQuNK2hSNd90Jmw"
+credential-provider = "cargo:token"
+
+[alias]
+tt = "test --all --all-features -- --test-threads=1"
+
+[build]
+rustflags = ["--cfg", "tracing_unstable"]

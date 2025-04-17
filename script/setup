@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euo pipefail
+[ -z "${DEBUG:-}" ] || set -x
+
+cd "$(dirname "$0")/.."
+
+# ensure the containers aren't currently running
+docker-compose down
+
+# build the images without using a cache
+docker-compose build --no-cache
+
+# start docker-compose services
+docker-compose up --detach

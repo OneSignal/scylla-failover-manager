@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Purpose:
+#
+# Brings up the docker containers.
+
+set -e
+[ -z "${DEBUG}" ] || set -x
+
+cd "$(dirname "$0")/.."
+
+# by default, we run in detach mode
+DETACH="--detach"
+
+# parse the option parameters
+for i in "$@"; do
+  case $i in
+    foreground)
+      DETACH=""
+      shift
+    ;;
+  esac
+done
+
+docker-compose up $DETACH

@@ -1,0 +1,13 @@
+{
+  "error": {
+    "code": 404,
+    "message": "The resource 'projects/core-infra-onesignal/zones/europe-west4-c/instances/a179c06f-p00-xf0-sub-postgres-persistence-onesignal' was not found",
+    "errors": [
+      {
+        "message": "The resource 'projects/core-infra-onesignal/zones/europe-west4-c/instances/a179c06f-p00-xf0-sub-postgres-persistence-onesignal' was not found",
+        "domain": "global",
+        "reason": "notFound"
+      }
+    ]
+  }
+}

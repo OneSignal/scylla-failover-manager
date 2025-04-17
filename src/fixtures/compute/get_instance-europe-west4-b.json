@@ -1,0 +1,416 @@
+{
+  "kind": "compute#instance",
+  "id": "2009105993872186471",
+  "creationTimestamp": "2024-06-18T08:06:50.581-07:00",
+  "name": "a179c06f-p00-xf0-sub-postgres-persistence-onesignal",
+  "tags": {
+    "items": [
+      "node-exporter",
+      "postgres",
+      "postgres-exporter"
+    ],
+    "fingerprint": "1baQFZVcAQA="
+  },
+  "machineType": "https://www.googleapis.com/compute/v1/projects/core-infra-onesignal/zones/europe-west4-b/machineTypes/n2-highmem-64",
+  "status": "RUNNING",
+  "zone": "https://www.googleapis.com/compute/v1/projects/core-infra-onesignal/zones/europe-west4-b",
+  "canIpForward": false,
+  "networkInterfaces": [
+    {
+      "kind": "compute#networkInterface",
+      "network": "https://www.googleapis.com/compute/v1/projects/shared-infra-onesignal/global/networks/core-network-onesignal",
+      "subnetwork": "https://www.googleapis.com/compute/v1/projects/shared-infra-onesignal/regions/europe-west4/subnetworks/core-subnetwork-core-network-onesignal",
+      "networkIP": "10.128.0.34",
+      "name": "nic0",
+      "accessConfigs": [
+        {
+          "kind": "compute#accessConfig",
+          "type": "ONE_TO_ONE_NAT",
+          "name": "external-nat",
+          "natIP": "35.214.178.38",
+          "networkTier": "STANDARD"
+        }
+      ],
+      "fingerprint": "qcB9ezXmeOI=",
+      "stackType": "IPV4_ONLY"
+    }
+  ],
+  "disks": [
+    {
+      "kind": "compute#attachedDisk",
+      "type": "PERSISTENT",
+      "mode": "READ_WRITE",
+      "source": "https://www.googleapis.com/compute/v1/projects/core-infra-onesignal/zones/europe-west4-b/disks/a179c06f-p00-xf0-sub-postgres-persistence-onesignal",
+      "deviceName": "persistent-disk-0",
+      "index": 0,
+      "boot": true,
+      "autoDelete": true,
+      "licenses": [
+        "https://www.googleapis.com/compute/v1/projects/debian-cloud/global/licenses/debian-11-bullseye"
+      ],
+      "interface": "SCSI",
+      "guestOsFeatures": [
+        {
+          "type": "UEFI_COMPATIBLE"
+        },
+        {
+          "type": "VIRTIO_SCSI_MULTIQUEUE"
+        },
+        {
+          "type": "GVNIC"
+        }
+      ],
+      "diskEncryptionKey": {
+        "kmsKeyServiceAccount": "",
+        "kmsKeyName": "projects/core-infra-onesignal/locations/europe-west4/keyRings/keyring-kms-onesignal/cryptoKeys/boot-disk-a179c06f-p00-xf0-sub-postgres-persistence-onesignal/cryptoKeyVersions/1"
+      },
+      "diskSizeGb": "256",
+      "architecture": "X86_64"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-0",
+      "index": 1,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-1",
+      "index": 2,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-2",
+      "index": 3,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-3",
+      "index": 4,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-4",
+      "index": 5,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-5",
+      "index": 6,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-6",
+      "index": 7,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-7",
+      "index": 8,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-8",
+      "index": 9,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-9",
+      "index": 10,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-10",
+      "index": 11,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-11",
+      "index": 12,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-12",
+      "index": 13,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-13",
+      "index": 14,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-14",
+      "index": 15,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-15",
+      "index": 16,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-16",
+      "index": 17,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-17",
+      "index": 18,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-18",
+      "index": 19,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-19",
+      "index": 20,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-20",
+      "index": 21,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-21",
+      "index": 22,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-22",
+      "index": 23,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    },
+    {
+      "kind": "compute#attachedDisk",
+      "type": "SCRATCH",
+      "mode": "READ_WRITE",
+      "savedState": "DISK_SAVED_STATE_UNSPECIFIED",
+      "deviceName": "local-ssd-23",
+      "index": 24,
+      "boot": false,
+      "autoDelete": true,
+      "interface": "NVME",
+      "diskSizeGb": "375"
+    }
+  ],
+  "metadata": {
+    "kind": "compute#metadata",
+    "fingerprint": "E7IRQ1_xuH0=",
+    "items": [
+      {
+        "key": "block-project-ssh-keys",
+        "value": "true"
+      }
+    ]
+  },
+  "serviceAccounts": [
+    {
+      "email": "instance-postgres-persistence@core-infra-onesignal.iam.gserviceaccount.com",
+      "scopes": [
+        "https://www.googleapis.com/auth/cloud-platform"
+      ]
+    }
+  ],
+  "selfLink": "https://www.googleapis.com/compute/v1/projects/core-infra-onesignal/zones/europe-west4-b/instances/a179c06f-p00-xf0-sub-postgres-persistence-onesignal",
+  "scheduling": {
+    "onHostMaintenance": "MIGRATE",
+    "automaticRestart": false,
+    "preemptible": false,
+    "provisioningModel": "STANDARD"
+  },
+  "cpuPlatform": "Intel Ice Lake",
+  "labels": {
+    "ansible_environment": "test",
+    "ansible_group": "instance_postgres_persistence",
+    "ansible_postgres_cluster_id": "subscription",
+    "ansible_postgres_instance_id": "a179c06f",
+    "ansible_postgres_is_primary": "false",
+    "ansible_postgres_replica_of": "c12cc9ce",
+    "ansible_postgres_shard_id": "p00-xf0",
+    "ansible_postgres_version": "15",
+    "node_exporter": "enabled",
+    "onesignal_com_team": "platform",
+    "postgres_exporters": "enabled"
+  },
+  "labelFingerprint": "4zm3uF8rQqU=",
+  "minCpuPlatform": "Intel Ice Lake",
+  "startRestricted": false,
+  "deletionProtection": true,
+  "shieldedInstanceConfig": {
+    "enableSecureBoot": true,
+    "enableVtpm": true,
+    "enableIntegrityMonitoring": true
+  },
+  "shieldedInstanceIntegrityPolicy": {
+    "updateAutoLearnPolicy": true
+  },
+  "fingerprint": "uxPLVLYmdww=",
+  "advancedMachineFeatures": {
+    "threadsPerCore": 2
+  },
+  "lastStartTimestamp": "2024-06-18T08:07:02.215-07:00",
+  "satisfiesPzi": true
+}

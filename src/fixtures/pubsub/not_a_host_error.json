@@ -1,0 +1,39 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {
+      "message": "Instance terminated by Compute Engine."
+    },
+    "authenticationInfo": {
+      "principalEmail": "system@google.com"
+    },
+    "serviceName": "compute.googleapis.com",
+    "methodName": "compute.instances.hostError",
+    "resourceName": "projects/core-infra-onesignal/zones/europe-west4-b/instances/e340142f-p00-xe0-sub-postgres-persistence-onesignal",
+    "request": {
+      "@type": "type.googleapis.com/compute.instances.hostError"
+    }
+  },
+  "insertId": "-6mrd68di0ag",
+  "resource": {
+    "type": "gce_instance",
+    "labels": {
+      "instance_id": "4162442934972324426",
+      "project_id": "core-infra-onesignal",
+      "zone": "europe-west4-b"
+    }
+  },
+  "timestamp": "2024-09-05T21:52:57.411466Z",
+  "severity": "INFO",
+  "labels": {
+    "compute.googleapis.com/root_trigger_id": "08f90cb5-f728-4655-8b3e-521a02db78d3"
+  },
+  "logName": "projects/core-infra-onesignal/logs/cloudaudit.googleapis.com%2Fsystem_event",
+  "operation": {
+    "id": "systemevent-1725573174254-621665015daf3-be49e4f2-3a389b3f",
+    "producer": "compute.instances.NotAHostError",
+    "first": true,
+    "last": true
+  },
+  "receiveTimestamp": "2024-09-05T21:52:57.896194566Z"
+}

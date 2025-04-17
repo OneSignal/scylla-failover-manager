@@ -1,0 +1,34 @@
+onesignal:
+  team: "platform"
+  repository: "https://github.com/onesignal/scylla-failover-manager"
+
+image:
+  repository: "europe-west4-docker.pkg.dev/core-infra-onesignal/onesignal/scylla-failover-manager"
+
+
+
+resources:
+  requests:
+    memory: 100Mi
+    cpu: 100m
+  limits:
+    memory: 100Mi
+
+poolAffinity: default
+
+consumer:
+  livenessProbe:
+    tcpSocket:
+      port: 9090
+  service: false
+  arguments:
+    - "--environment"
+    - "{{ $.Values.environment }}"
+  gcp_sa: "scylla-failover-manager"
+  envVars:
+    RUST_TRACING: info
+  labels:
+    logging.onesignal.io/info_sample: "off"
+    logging.onesignal.io/notice_sample: "off"
+    logging.onesignal.io/warn_sample: "off"
+    logging.onesignal.io/error_sample: "off"

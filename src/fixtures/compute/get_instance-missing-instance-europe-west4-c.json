@@ -1,0 +1,13 @@
+{
+  "error": {
+    "code": 404,
+    "message": "The resource 'projects/core-infra-onesignal/zones/europe-west4-c/instances/missing-instance' not found",
+    "errors": [
+      {
+        "message": "The resource 'projects/core-infra-onesignal/zones/europe-west4-c/instances/missing-instance' was not found",
+        "domain": "global",
+        "reason": "notFound"
+      }
+    ]
+  }
+}

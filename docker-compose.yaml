@@ -1,0 +1,35 @@
+services:
+  code:
+    build:
+      dockerfile: docker/code/Dockerfile
+    stdin_open: true
+    tty: true
+    init: true
+    working_dir: /code
+    command: bash
+    environment:
+      RUST_TRACING: debug
+      CARGO_TARGET_DIR: "/cargo-target/target"
+      PUBSUB_EMULATOR_HOST: pubsub-emulator:8085
+    volumes:
+      - .:/code:cached
+      - target:/cargo-target
+      - cargo:/usr/local/cargo
+      - ~/.ssh:/root/.ssh
+    depends_on: []
+  pubsub-emulator:
+    image: europe-west4-docker.pkg.dev/core-infra-onesignal/google/google-cloud-cli:501.0.0-emulators
+    init: true
+    command:
+      - gcloud
+      - beta
+      - emulators
+      - pubsub
+      - start
+      - --host-port=0.0.0.0:8085
+      - --project=test-project
+      - --verbosity=debug
+
+volumes:
+  target:
+  cargo:
